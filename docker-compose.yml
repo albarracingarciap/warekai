@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: warekai-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: warekai
+      POSTGRES_PASSWORD: warekai
+      POSTGRES_DB: warekai
+    ports:
+      - '5432:5432'
+    volumes:
+      - warekai-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U warekai -d warekai']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: warekai-redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    volumes:
+      - warekai-redisdata:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  warekai-pgdata:
+  warekai-redisdata:

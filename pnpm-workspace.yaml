@@ -1,0 +1,10 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
+# Scripts de instalacion permitidos. Se listan de forma explicita en lugar de
+# habilitarlos en bloque: cada entrada es una decision consciente.
+allowBuilds:
+  # esbuild descarga su binario nativo en el postinstall. Lo necesitan Vite y
+  # Vitest para arrancar.
+  esbuild: true

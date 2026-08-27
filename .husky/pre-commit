@@ -1,0 +1,6 @@
+pnpm exec lint-staged
+
+# El motor de costes es la pieza que no puede entrar rota en la rama: se
+# ejecuta entero, con su umbral de cobertura del 100 %, en cada commit.
+# Tarda un par de segundos y evita el bug caro.
+pnpm --filter @warekai/domain test

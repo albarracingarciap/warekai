@@ -1,0 +1,4 @@
+# El equipo trabaja en Windows y el despliegue es Linux. Normalizar a LF en el
+# repositorio evita que cada checkout ensucie el diff con finales de linea.
+* text=auto eol=lf
+pnpm-lock.yaml linguist-generated=true -diff
