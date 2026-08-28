@@ -8,3 +8,12 @@ allowBuilds:
   # esbuild descarga su binario nativo en el postinstall. Lo necesitan Vite y
   # Vitest para arrancar.
   esbuild: true
+  # Mensaje promocional en consola. No aporta nada al arranque.
+  '@nestjs/core': false
+  # Telemetria de analitica de paquetes. No la queremos.
+  '@scarf/scarf': false
+  # Acelerador nativo de msgpackr, que usa BullMQ para serializar los trabajos.
+  # Requiere cadena de compilacion C++ y tiene alternativa en JavaScript puro;
+  # el coste de compilarlo en cada maquina no compensa para una cola con unos
+  # pocos recalculos por hora.
+  msgpackr-extract: false

@@ -38,7 +38,19 @@ export default tseslint.config(
   },
   {
     // Los seeders y scripts de CLI sí escriben por consola.
-    files: ['**/db/seed/**', '**/scripts/**', '**/*.seed.ts'],
+    files: ['**/db/seed/**', '**/scripts/**', '**/*.seed.ts', '**/migrate.ts', '**/reset.ts'],
     rules: { 'no-console': 'off' },
+  },
+  {
+    files: ['apps/api/**/*.ts'],
+    rules: {
+      // NestJS resuelve las dependencias del constructor leyendo los metadatos
+      // que TypeScript emite con `emitDecoratorMetadata`, y solo los emite para
+      // imports de valor. Convertir `import { CostingService }` en
+      // `import type { CostingService }` deja el metadato vacío y el contenedor
+      // inyecta `undefined` en tiempo de ejecución, sin ningún aviso al
+      // compilar. La regla es correcta en general y está mal aquí.
+      '@typescript-eslint/consistent-type-imports': 'off',
+    },
   },
 );
