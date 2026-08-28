@@ -95,7 +95,8 @@ la explosión está perdiendo o duplicando coste.
 ## Lo que falta: apartado E (frontend)
 
 Nada de esto está empezado. El plan aprobado está en
-`C:\Users\palbarracin\.claude\plans\precious-meandering-wreath.md`.
+[docs/plan-iteracion-1.md](docs/plan-iteracion-1.md) y el encargo original en
+[docs/encargo.md](docs/encargo.md).
 
 ### 1. `packages/ui` — sistema de diseño
 
@@ -172,10 +173,29 @@ No hay que volver a preguntarlas.
 
 ---
 
+## Mudarse a otro ordenador
+
+Basta con clonar el repositorio: lleva todo lo necesario, incluidos el encargo
+original y el plan aprobado en [`docs/`](docs/). Lo único que **no** viaja, y hay
+que rehacer en la máquina nueva:
+
+```bash
+cp .env.example .env     # está en .gitignore; genera secretos nuevos
+pnpm install             # instala husky y compila los hooks
+pnpm build               # domain y contracts se consumen desde dist/
+```
+
+No hace falta conservar el historial de la conversación de desarrollo: el porqué
+de cada decisión está en los mensajes de commit (`git log`), en los comentarios
+del código y en la sección «Decisiones técnicas» del README.
+
+---
+
 ## Cosas que conviene saber antes de tocar el código
 
-- **El `.env` local existe y está en `.gitignore`.** Tiene secretos de
-  desarrollo; para producción hay que generar otros (`openssl rand -base64 48`).
+- **El `.env` local está en `.gitignore` y no viaja con el repositorio.** Hay que
+  crearlo desde `.env.example` y generar secretos propios
+  (`openssl rand -base64 48`).
 - **El pre-commit ejecuta la suite entera de `domain` con su umbral del 100 %.**
   Tarda un par de segundos. Si un commit falla ahí, es que la cobertura bajó.
 - **`consistent-type-imports` está desactivada en `apps/api`** y hay un
